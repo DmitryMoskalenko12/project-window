@@ -220,6 +220,16 @@
       "select": "french",
       "property": "Холодне",
       "id": 34
+    },
+    {
+      "user_name": "иван",
+      "user_phone": "987654",
+      "window": "0",
+      "width": "160",
+      "height": "230",
+      "select": "tree",
+      "property": "Тепле",
+      "id": 35
     }
   ]
 }

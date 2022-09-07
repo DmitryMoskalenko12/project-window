@@ -5,6 +5,7 @@ import form from './modules/form';
 import tab from './modules/tabs';
 import timer from './modules/timer';
 import allInfo from './modules/getInfo';
+import showPicture from './modules/picture';
 
  const allData = {};
 window.addEventListener('DOMContentLoaded', () => {
@@ -19,4 +20,5 @@ tab('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
 tab('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
 timer('2022-09-15', '.timer1');
 allInfo(allData);
+showPicture();
 });

@@ -66,7 +66,7 @@ function modal(trigger, close, modal, hide = false) {
     }, time)
    
 } 
-showModalByTime('.popup', 10000); 
+showModalByTime('.popup', 60000); 
   
 
   trigger1.forEach(item => {
