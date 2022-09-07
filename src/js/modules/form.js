@@ -1,4 +1,4 @@
-function form(form, element) {
+function form(form, element, obj) {
   const forms = document.querySelectorAll(form);
 
   function checkInput() {
@@ -46,6 +46,13 @@ function form(form, element) {
       form.appendChild(infoBlock);
 
       const formData = new FormData(form);
+
+      if(form.getAttribute('data-end') === "end"){
+         for(let key in obj){
+          formData.append(key, obj[key])
+         }
+      }
+
       const json = JSON.stringify(Object.fromEntries(formData.entries()));
       postData("http://localhost:3000/result", json)
         .then(() => {
