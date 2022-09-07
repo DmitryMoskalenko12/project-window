@@ -18752,6 +18752,25 @@ function modal(trigger, close, modal) {
     return result;
   }
 
+  function showModalByTime(selector, time) {
+    setTimeout(function () {
+      var display;
+      document.querySelectorAll('[data-modal]').forEach(function (modal) {
+        if (getComputedStyle(modal).display !== 'none') {
+          display = 'block';
+        }
+      });
+
+      if (!display) {
+        document.querySelector(selector).style.display = 'block';
+        document.querySelector(selector).classList.add('animated', 'fadeIn');
+        document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = "".concat(scroll1, "px");
+      }
+    }, time);
+  }
+
+  showModalByTime('.popup', 10000);
   trigger1.forEach(function (item) {
     item.addEventListener('click', showModal);
   });

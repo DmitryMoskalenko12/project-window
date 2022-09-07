@@ -49,6 +49,25 @@ function modal(trigger, close, modal, hide = false) {
     return result    
   }
  
+ function showModalByTime(selector, time) {
+  setTimeout(() =>{
+    let display;
+    document.querySelectorAll('[data-modal]').forEach(modal =>{
+      if (getComputedStyle(modal).display !== 'none') {
+        display = 'block';
+      }
+    });
+    if (!display) {
+      document.querySelector(selector).style.display = 'block';
+      document.querySelector(selector).classList.add('animated', 'fadeIn');
+      document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = `${scroll1}px`;
+      }
+    }, time)
+   
+} 
+showModalByTime('.popup', 10000); 
+  
 
   trigger1.forEach(item => {
     item.addEventListener('click', showModal)
