@@ -1,4 +1,4 @@
-function tab(selector, tab, content, activeClass) {
+function tab(selector, tab, content, activeClass, display = 'block') {
   const parent = document.querySelector(selector),
         tabs = document.querySelectorAll(tab),
         content1 = document.querySelectorAll(content);
@@ -6,6 +6,7 @@ function tab(selector, tab, content, activeClass) {
   function hideContent() {
     content1.forEach(item => {
     item.style.display = 'none';
+    item.classList.remove('animated', 'fadeIn',);
     })
     tabs.forEach(tab => {
     tab.classList.remove(activeClass);
@@ -13,7 +14,8 @@ function tab(selector, tab, content, activeClass) {
   }
   
   function showContent(i = 0) {
-    content1[i].style.display = 'block';
+    content1[i].style.display = display;
+    content1[i].classList.add('animated', 'fadeIn',);
     tabs[i].classList.add(activeClass);
   }
 

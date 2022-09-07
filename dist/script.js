@@ -3471,6 +3471,62 @@ $({ target: PROMISE, stat: true, forced: INCORRECT_ITERATION }, {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es.string.match.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/core-js/modules/es.string.match.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var fixRegExpWellKnownSymbolLogic = __webpack_require__(/*! ../internals/fix-regexp-well-known-symbol-logic */ "./node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js");
+var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
+var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "./node_modules/core-js/internals/require-object-coercible.js");
+var advanceStringIndex = __webpack_require__(/*! ../internals/advance-string-index */ "./node_modules/core-js/internals/advance-string-index.js");
+var regExpExec = __webpack_require__(/*! ../internals/regexp-exec-abstract */ "./node_modules/core-js/internals/regexp-exec-abstract.js");
+
+// @@match logic
+fixRegExpWellKnownSymbolLogic('match', 1, function (MATCH, nativeMatch, maybeCallNative) {
+  return [
+    // `String.prototype.match` method
+    // https://tc39.github.io/ecma262/#sec-string.prototype.match
+    function match(regexp) {
+      var O = requireObjectCoercible(this);
+      var matcher = regexp == undefined ? undefined : regexp[MATCH];
+      return matcher !== undefined ? matcher.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
+    },
+    // `RegExp.prototype[@@match]` method
+    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@match
+    function (regexp) {
+      var res = maybeCallNative(nativeMatch, regexp, this);
+      if (res.done) return res.value;
+
+      var rx = anObject(regexp);
+      var S = String(this);
+
+      if (!rx.global) return regExpExec(rx, S);
+
+      var fullUnicode = rx.unicode;
+      rx.lastIndex = 0;
+      var A = [];
+      var n = 0;
+      var result;
+      while ((result = regExpExec(rx, S)) !== null) {
+        var matchStr = String(result[0]);
+        A[n] = matchStr;
+        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+        n++;
+      }
+      return n === 0 ? null : A;
+    }
+  ];
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es.string.replace.js":
 /*!***********************************************************!*\
   !*** ./node_modules/core-js/modules/es.string.replace.js ***!
@@ -18412,9 +18468,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', function () {
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_engineer_btn', '.popup_close', '.popup_engineer');
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.phone_link', '.popup_close', '.popup');
-  Object(_modules_form__WEBPACK_IMPORTED_MODULE_2__["default"])('form');
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_engineer_btn', '.popup_close', '.popup_engineer', true);
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.phone_link', '.popup_close', '.popup', true);
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.glazing_price_btn', '.popup_calc_close', '.popup_calc', false);
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_button', '.popup_calc_profile_close', '.popup_calc_profile', false);
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.popup_calc_profile_button', '.popup_calc_end_close', '.popup_calc_end', false);
+  Object(_modules_form__WEBPACK_IMPORTED_MODULE_2__["default"])('form', 'input');
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_3__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_3__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_3__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_4__["default"])('2022-09-15', '.timer1');
@@ -18441,12 +18501,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.promise.finally */ "./node_modules/core-js/modules/es.promise.finally.js");
 /* harmony import */ var core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_finally__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_string_match__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.string.match */ "./node_modules/core-js/modules/es.string.match.js");
+/* harmony import */ var core_js_modules_es_string_match__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_match__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "./node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -18456,15 +18520,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function form(form) {
+
+
+function form(form, element) {
   var forms = document.querySelectorAll(form);
+
+  function checkInput() {
+    var inp = document.querySelectorAll(element);
+    inp.forEach(function (elem) {
+      elem.addEventListener("input", function () {
+        if (elem.getAttribute("name") === "user_phone") {
+          elem.value = elem.value.replace(/\D/gi, "");
+        }
+      });
+    });
+    inp.forEach(function (item) {
+      item.addEventListener('keypress', function (e) {
+        if (e.key.match(/[^а-яё 0-9]/ig)) {
+          e.preventDefault();
+        }
+      });
+    });
+  }
+
+  checkInput();
   var message = {
-    loading: 'Дані завантажуються...',
-    success: 'Дякуємо! Дані отримано!',
-    failure: 'Виникла помилка при отправці данних'
+    loading: "Дані завантажуються...",
+    success: "Дякуємо! Дані отримано!",
+    failure: "Виникла помилка при отправці данних"
   };
   forms.forEach(function (form) {
-    form.addEventListener('submit', function (e) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
 
       function postData(url, data) {
@@ -18475,9 +18561,9 @@ function form(form) {
               case 0:
                 _context.next = 2;
                 return regeneratorRuntime.awrap(fetch(url, {
-                  method: 'POST',
+                  method: "POST",
                   headers: {
-                    'Content-type': 'application/json'
+                    "Content-type": "application/json"
                   },
                   body: data
                 }));
@@ -18498,12 +18584,12 @@ function form(form) {
         });
       }
 
-      var infoBlock = document.createElement('div');
+      var infoBlock = document.createElement("div");
       infoBlock.textContent = message.loading;
       form.appendChild(infoBlock);
       var formData = new FormData(form);
       var json = JSON.stringify(Object.fromEntries(formData.entries()));
-      postData('http://localhost:3000/result', json).then(function () {
+      postData("http://localhost:3000/result", json).then(function () {
         infoBlock.textContent = message.success;
         setTimeout(function () {
           infoBlock.remove();
@@ -18538,26 +18624,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function modal(trigger, close, modal) {
+  var hide = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   var trigger1 = document.querySelectorAll(trigger),
       modal1 = document.querySelector(modal),
       close1 = document.querySelectorAll(close),
+      windows = document.querySelectorAll('[data-close]'),
       scroll1 = scroll();
 
   function showModal(e) {
     e.preventDefault();
+    windows.forEach(function (modal) {
+      modal.style.display = 'none';
+    });
     modal1.style.display = 'block';
+    modal1.classList.add('animated', 'fadeIn');
     document.body.style.overflow = 'hidden';
     document.body.style.marginRight = "".concat(scroll1, "px");
   }
 
   function hideModal() {
     modal1.style.display = 'none';
+    modal1.classList.remove('animated', 'fadeIn');
     document.body.style.overflow = '';
     document.body.style.marginRight = "".concat(0, "px");
   }
 
   modal1.addEventListener('click', function (e) {
-    if (e.target === modal1) {
+    if (e.target === modal1 && hide) {
       hideModal();
     }
   });
@@ -18605,6 +18698,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function tab(selector, tab, content, activeClass) {
+  var display = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'block';
   var parent = document.querySelector(selector),
       tabs = document.querySelectorAll(tab),
       content1 = document.querySelectorAll(content);
@@ -18612,6 +18706,7 @@ function tab(selector, tab, content, activeClass) {
   function hideContent() {
     content1.forEach(function (item) {
       item.style.display = 'none';
+      item.classList.remove('animated', 'fadeIn');
     });
     tabs.forEach(function (tab) {
       tab.classList.remove(activeClass);
@@ -18620,7 +18715,8 @@ function tab(selector, tab, content, activeClass) {
 
   function showContent() {
     var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-    content1[i].style.display = 'block';
+    content1[i].style.display = display;
+    content1[i].classList.add('animated', 'fadeIn');
     tabs[i].classList.add(activeClass);
   }
 
