@@ -18799,11 +18799,9 @@ function showPicture() {
   var picturePopup = document.createElement('div'),
       workSection = document.querySelector('.works'),
       bigImage = document.createElement('img');
-  picturePopup.classList.add('popup');
+  picturePopup.classList.add('popupimg');
   workSection.appendChild(picturePopup);
-  picturePopup.style.justifyContent = 'center';
-  picturePopup.style.alignItems = 'center';
-  picturePopup.style.display = 'none';
+  picturePopup.style.cssText = "\n          display: none;\n          position: fixed;\n          top: 0;\n          left: 0;\n          width: 100%;\n          height: 100%;\n          z-index: 9;\n          background-color: rgba(0, 0, 0, 0.5);\n          align-items: center;\n          justify-content: center";
   picturePopup.appendChild(bigImage);
   workSection.addEventListener('click', function (e) {
     e.preventDefault();
@@ -18815,7 +18813,7 @@ function showPicture() {
       bigImage.setAttribute('src', path);
     }
 
-    if (target && target.matches('div.popup')) {
+    if (target && target.matches('div.popupimg')) {
       picturePopup.style.display = 'none';
     }
   });
