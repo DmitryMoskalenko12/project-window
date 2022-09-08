@@ -1,3 +1,17 @@
+export function scroll() {
+  const div = document.createElement('div');
+  div.style.cssText = `
+  width: 50px;
+  height: 50px;
+  visibility: hidden;
+  overflow-y: scroll`;
+  document.body.append(div);
+  const result = div.offsetWidth - div.clientWidth;
+  div.remove();
+  return result    
+}
+
+
 function modal(trigger, close, modal, hide = false) {
 
   const trigger1 = document.querySelectorAll(trigger),
@@ -36,19 +50,6 @@ function modal(trigger, close, modal, hide = false) {
     }
    });
 
-  function scroll() {
-    const div = document.createElement('div');
-    div.style.cssText = `
-    width: 50px;
-    height: 50px;
-    visibility: hidden;
-    overflow-y: scroll`;
-    document.body.append(div);
-    const result = div.offsetWidth - div.clientWidth;
-    div.remove();
-    return result    
-  }
- 
  function showModalByTime(selector, time) {
   setTimeout(() =>{
     let display;

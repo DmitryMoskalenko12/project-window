@@ -44,7 +44,7 @@ function allInfo(obj) {
         bindElements('click', windows, 'window');
         bindElements('input', width, 'width');
         bindElements('input', height, 'height');
-        bindElements('input', range, 'select');
+        bindElements('change', range, 'select');
         bindElements('change', checkbox, 'property');
 }
 export default allInfo;

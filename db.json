@@ -4,6 +4,26 @@
       "user_name": "михайло",
       "user_phone": "83598595945",
       "id": 1
+    },
+    {
+      "user_name": "tthth",
+      "user_phone": "665656",
+      "window": "2",
+      "width": "1",
+      "height": "1",
+      "select": "aluminum",
+      "property": "Холодне",
+      "id": 2
+    },
+    {
+      "user_name": "tthth",
+      "user_phone": "65656",
+      "window": "0",
+      "width": "2",
+      "height": "2",
+      "select": "tree",
+      "property": "Тепле",
+      "id": 3
     }
   ]
 }

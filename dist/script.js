@@ -18688,7 +18688,7 @@ function allInfo(obj) {
   bindElements('click', windows, 'window');
   bindElements('input', width, 'width');
   bindElements('input', height, 'height');
-  bindElements('input', range, 'select');
+  bindElements('change', range, 'select');
   bindElements('change', checkbox, 'property');
 }
 
@@ -18700,14 +18700,23 @@ function allInfo(obj) {
 /*!*********************************!*\
   !*** ./src/js/modules/modal.js ***!
   \*********************************/
-/*! exports provided: default */
+/*! exports provided: scroll, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "scroll", function() { return scroll; });
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
 
+function scroll() {
+  var div = document.createElement('div');
+  div.style.cssText = "\n  width: 50px;\n  height: 50px;\n  visibility: hidden;\n  overflow-y: scroll";
+  document.body.append(div);
+  var result = div.offsetWidth - div.clientWidth;
+  div.remove();
+  return result;
+}
 
 function modal(trigger, close, modal) {
   var hide = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
@@ -18745,15 +18754,6 @@ function modal(trigger, close, modal) {
       hideModal();
     }
   });
-
-  function scroll() {
-    var div = document.createElement('div');
-    div.style.cssText = "\n    width: 50px;\n    height: 50px;\n    visibility: hidden;\n    overflow-y: scroll";
-    document.body.append(div);
-    var result = div.offsetWidth - div.clientWidth;
-    div.remove();
-    return result;
-  }
 
   function showModalByTime(selector, time) {
     setTimeout(function () {
@@ -18795,13 +18795,18 @@ function modal(trigger, close, modal) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./src/js/modules/modal.js");
+
+
 function showPicture() {
   var picturePopup = document.createElement('div'),
       workSection = document.querySelector('.works'),
+      pictureScroll = Object(_modal__WEBPACK_IMPORTED_MODULE_0__["scroll"])(),
       bigImage = document.createElement('img');
   picturePopup.classList.add('popupimg');
   workSection.appendChild(picturePopup);
-  picturePopup.style.cssText = "\n          display: none;\n          position: fixed;\n          top: 0;\n          left: 0;\n          width: 100%;\n          height: 100%;\n          z-index: 9;\n          background-color: rgba(0, 0, 0, 0.5);\n          align-items: center;\n          justify-content: center";
+  picturePopup.setAttribute('data-modal', true);
+  picturePopup.style.cssText = "\n          display: none;\n          position: fixed;\n          top: 0;\n          left: 0;\n          width: 100%;\n          height: 100%;\n          z-index: 9;\n          background-color: rgba(0, 0, 0, 0.5);\n          align-items: center;\n          justify-content: center;\n           ";
   picturePopup.appendChild(bigImage);
   workSection.addEventListener('click', function (e) {
     e.preventDefault();
@@ -18809,12 +18814,18 @@ function showPicture() {
 
     if (target && target.classList.contains('preview')) {
       picturePopup.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      picturePopup.classList.add('animated', 'fadeIn');
+      document.body.style.marginRight = "".concat(pictureScroll, "px");
       var path = target.parentNode.getAttribute('href');
       bigImage.setAttribute('src', path);
     }
 
     if (target && target.matches('div.popupimg')) {
       picturePopup.style.display = 'none';
+      document.body.style.overflow = '';
+      picturePopup.classList.remove('animated', 'fadeIn');
+      document.body.style.marginRight = "".concat(0, "px");
     }
   });
 }
